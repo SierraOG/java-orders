@@ -1,5 +1,7 @@
 package local.sierraog.javaorders.controllers;
 
+import local.sierraog.javaorders.models.Order;
+import local.sierraog.javaorders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/order/{id}",
+            produces = {"application/json"})
     public ResponseEntity<?> listOrderWithId(
             @PathVariable
                     int id
     )
     {
-        Customer myOrder = orderService.findOrderWithId(id);
+        Order myOrder = orderService.findOrderWithId(id);
         return new ResponseEntity<>(myOrder,
                 HttpStatus.OK);
     }
